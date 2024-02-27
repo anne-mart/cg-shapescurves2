@@ -52,7 +52,7 @@ class Renderer {
         // TODO: draw at least 2 Bezier curves
         //   - variable `this.num_curve_sections` should be used for `num_edges`
         //   - variable `this.show_points` should be used to determine whether or not to render vertices
-       this.drawBezierCurve({x: 100, y: 100}, {x: 70, y: 300}, {x: 600, y: 200}, {x: 500, y: 100}, 300, [255, 0, 0, 255], framebuffer);
+       this.drawBezierCurve({x: 100, y: 100}, {x: 70, y: 300}, {x: 600, y: 200}, {x: 500, y: 100}, 300, [0, 0, 255, 255], framebuffer);
     }
 
     // framebuffer:  canvas ctx image data
@@ -65,7 +65,7 @@ class Renderer {
         this.drawCircle({x:100, y: 150}, 50, 55, [255, 0, 0, 255], framebuffer);
 
         //circle 2
-        this.drawCircle({x:300, y: 300}, 100, 55, [245, 39, 187, 0], framebuffer);
+        this.drawCircle({x:300, y: 300}, 100, 55, [255, 0, 0, 255], framebuffer);
     }
 
     // framebuffer:  canvas ctx image data
@@ -80,8 +80,8 @@ class Renderer {
         let point_b = {x: 100, y: 400};
         let point_c = {x: 300, y: 250};
         let point_d = {x: 200, y: 350};
-        let point_e = {x: 100, y: 150};
-        this.drawConvexPolygon([point_a, point_b, point_c, point_d, point_e], [0, 128, 128, 255], framebuffer);
+        //let point_e = {x: 100, y: 150};
+        this.drawConvexPolygon([point_a, point_b, point_c, point_d], [255, 0, 0, 255], framebuffer);
         
     }
 
@@ -90,13 +90,13 @@ class Renderer {
         // TODO: draw your name!
 
         //symbol
-        this.drawVertex({x:  500, y:  500}, [200, 0, 0, 255], framebuffer)
+        this.drawVertex({x:  500, y:  500}, [0, 200, 0, 255], framebuffer)
 
         //Filled in polygon
         let point_a = {x:  100, y:  500};
         let point_b = {x: 200, y: 500};
         let point_c = {x: 150, y: 360};
-        this.drawTriangle(point_a, point_c, point_b, [0, 128, 128, 255], framebuffer);
+        this.drawTriangle(point_a, point_c, point_b, [255, 0, 0, 255], framebuffer);
 
         //A
         this.drawLine({x: 100, y: 100}, {x: 150, y: 400}, [200, 0, 0, 255], framebuffer);
@@ -104,17 +104,17 @@ class Renderer {
         this.drawLine({x: 100, y: 200}, {x: 200, y: 200}, [200, 0, 0, 255], framebuffer);
         
         //N
-        this.drawArc({x:300, y: 300}, 50, 55, [245, 39, 187, 0], framebuffer);
+        this.drawArc({x:300, y: 300}, 50, 55, [255, 0, 0, 255], framebuffer);
         this.drawLine({x: 250, y: 100}, {x: 250, y: 350}, [200, 0, 0, 255], framebuffer);
         this.drawLine({x: 350, y: 100}, {x: 350, y: 300}, [200, 0, 0, 255], framebuffer);
 
         //N
-        this.drawArc({x:500, y: 300}, 50, 55, [245, 39, 187, 0], framebuffer);
+        this.drawArc({x:500, y: 300}, 50, 55, [255, 0, 0, 255], framebuffer);
         this.drawLine({x: 450, y: 100}, {x: 450, y: 350}, [200, 0, 0, 255], framebuffer);
         this.drawLine({x: 550, y: 100}, {x: 550, y: 300}, [200, 0, 0, 255], framebuffer);
 
         //E
-        this.drawCircle({x:700, y: 300}, 50, 55, [245, 39, 187, 0], framebuffer);
+        this.drawCircle({x:700, y: 300}, 50, 55, [255, 0, 0, 255], framebuffer);
         this.drawLine({x: 650, y: 300}, {x: 650, y: 100}, [200, 0, 0, 255], framebuffer);
         this.drawLine({x: 650, y: 100}, {x: 750, y: 100}, [200, 0, 0, 255], framebuffer);
         
@@ -171,7 +171,7 @@ class Renderer {
         xgoal=Math.floor(((Math.pow(1-t,3)*p0.x) + (3*(Math.pow(1-t,2))*t*p1.x) + (3*(1-t)*Math.pow(t,2)*p2.x) + (Math.pow(t,3)*p3.x)));
         ygoal = Math.floor(((Math.pow(1-t,3)*p0.y)+(3*(Math.pow(1-t,2))*t*p1.y)+(3*(1-t)*Math.pow(t,2)*p2.y)+(Math.pow(t,3)*p3.y)));
         
-        this.drawLine({x: prevx, y: prevy}, {x: xgoal, y: ygoal}, [255, 0, 0, 255], framebuffer);
+        this.drawLine({x: prevx, y: prevy}, {x: xgoal, y: ygoal}, color, framebuffer);
 
         prevx = xgoal;
         prevy = ygoal;
@@ -199,7 +199,7 @@ class Renderer {
         while(t<=2*Math.PI){
             xgoal= Math.floor(center.x+radius*Math.cos(t));
             ygoal = Math.floor(center.y+radius*Math.sin(t));
-            this.drawLine({x: prevx, y: prevy}, {x: xgoal, y: ygoal}, [255, 0, 0, 255], framebuffer);
+            this.drawLine({x: prevx, y: prevy}, {x: xgoal, y: ygoal}, color, framebuffer);
             prevx = xgoal;
             prevy = ygoal;
             t = t+t_gap;
@@ -220,7 +220,7 @@ class Renderer {
             xgoal= Math.floor(center.x+radius*Math.cos(t));
             ygoal = Math.floor(center.y+radius*Math.sin(t));
             
-            this.drawLine({x: prevx, y: prevy}, {x: xgoal, y: ygoal}, [255, 0, 0, 255], framebuffer);
+            this.drawLine({x: prevx, y: prevy}, {x: xgoal, y: ygoal}, color, framebuffer);
 
             prevx = xgoal;
             prevy = ygoal;
@@ -238,20 +238,17 @@ class Renderer {
         let point_b = vertex_list[1];
         let point_c = vertex_list[2];
 
-        this.drawTriangle(point_a, point_b, point_c, [0, 128, 128, 255], framebuffer);
+        this.drawTriangle(point_a, point_b, point_c, color, framebuffer);
 
         let center = vertex_list[0];
         let prev = vertex_list[2];
 
         for (let i=1; i<vertex_list.length; i++) {
-            this.drawTriangle(center, vertex_list[i], prev, [0, 128, 128, 255], framebuffer);
+            this.drawTriangle(center, vertex_list[i], prev, color, framebuffer);
             prev = vertex_list[i];
           
             //this.drawLine({x: vertex_list[0].x, y: vertex_list[0].y}, {x: vertex_list[i].x, y: vertex_list[i].y}, [255, 0, 0, 255], framebuffer);
-        }
-
-
-        
+        } 
     }
     
     // v:            object {x: __, y: __}
@@ -259,10 +256,10 @@ class Renderer {
     // framebuffer:  canvas ctx image data
     drawVertex(v, color, framebuffer) { //DONE
         // TODO: draw some symbol (e.g. small rectangle, two lines forming an X, ...) centered at position `v`
-        this.drawLine({x: v.x, y: v.y}, {x: v.x+50, y: v.y+50}, [255, 0, 0, 255], framebuffer);
-        this.drawLine({x: v.x, y: v.y}, {x: v.x-50, y: v.y-50}, [255, 0, 0, 255], framebuffer);
-        this.drawLine({x: v.x, y: v.y}, {x: v.x+50, y: v.y-50}, [255, 0, 0, 255], framebuffer);
-        this.drawLine({x: v.x, y: v.y}, {x: v.x-50, y: v.y+50}, [255, 0, 0, 255], framebuffer);
+        this.drawLine({x: v.x, y: v.y}, {x: v.x+50, y: v.y+50}, color, framebuffer);
+        this.drawLine({x: v.x, y: v.y}, {x: v.x-50, y: v.y-50}, color, framebuffer);
+        this.drawLine({x: v.x, y: v.y}, {x: v.x+50, y: v.y-50}, color, framebuffer);
+        this.drawLine({x: v.x, y: v.y}, {x: v.x-50, y: v.y+50}, color, framebuffer);
     }
     
     /***************************************************************
